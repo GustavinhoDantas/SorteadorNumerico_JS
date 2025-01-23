@@ -6,14 +6,13 @@ function sortear() {
     let numero;
 
     console.log(`quantidade = ${quantidade}, até = ${ate}, de = ${de}`);
-
-    if (de >= ate) {
-        alert('Campo "Do número" deve ser inferior ao campo "Até o número". Verifique!');
+    
+    if (de >= ate || !de || !ate ||  !quantidade) {
+        alert('Campo "Do número" deve ser inferior ao campo "Até o número" ou existem campos vazios. Verifique!');
+        limpar();
         return;
-//        statusBotao();
-//        reiniciar();
     } else { 
-        for (let i = 0;  i < quantidade; i++) {
+        for (let i = 0;  i < quantidade; i++){
             numero = aleatorio(de, ate);
 
             while (sorteados.includes(numero)){
@@ -29,7 +28,7 @@ function sortear() {
         let resultado = document.getElementById('resultado');
         resultado.innerHTML = `<label class="texto__paragrafo" >Números sorteados: ${sorteados}</label>`
 
-        statusBotao();
+        statusBotao();  
     }
 }
 
@@ -38,20 +37,34 @@ function aleatorio(min, max) {
 }
 
 function reiniciar (){
+    let voltar = document.getElementById('btn-reiniciar')
     resultado.innerHTML = `<label class="texto__paragrafo" >Números sorteados: nenhum até agora</label>`
     quantidade.value = '';
     de.value = '';
     ate.value = '';
     numero = aleatorio(de, ate);
+    console.log('aqui');
+    if (voltar.classList.contains('container__botao')){
+        voltar.classList.remove('container__botao');
+        voltar.classList.add('container__botao-desabilitado');
+        console.log(voltar.classList);
+    }
 }
 
 function statusBotao(){
     let voltar = document.getElementById('btn-reiniciar');
+    console.log(voltar.classList);
     if (voltar.classList.contains('container__botao-desabilitado')){
         voltar.classList.remove('container__botao-desabilitado');
         voltar.classList.add('container__botao');
-    }else if (voltar.classList.contains('container__botao')){
-        voltar.classList.remove('container__botao');
-        voltar.classList.add('container__botao-desabilitado');
+        console.log(voltar.classList);
     }
+}
+
+function limpar() {
+    resultado.innerHTML = `<label class="texto__paragrafo" >Números sorteados: nenhum até agora</label>`
+    quantidade.value = '';
+    de.value = '';
+    ate.value = '';
+    numero = aleatorio(de, ate);
 }
